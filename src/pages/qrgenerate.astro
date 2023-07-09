@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+---
+<title>QR Code Generator & Scanner</title>
+<Layout>
+  <section class="showcase">
+<div class="container">
+  <div class="generator">
+    <h1>QR Code Generator</h1>
+    <p>Paste a url or enter text</p>
+
+    <div class="generator-form">
+      <input type="text" class="inp" placeholder="Enter text or url"/>
+    </div>
+
+    <div  class="image">
+      <img  class="gen_img"/>
+    </div>
+
+    <div class="gen-btn">
+      <button class="download">
+      Download</button>
+    </div>
+  </div>
+</div>
+</section>
+
+</Layout>
+
+<script>
+ const gen_api="https://api.qrserver.com/v1/create-qr-code/?data=";
+ const inp = document.querySelector(".inp")!;
+ const qrImg = document.querySelector(".gen_img")! as HTMLImageElement;
+ const downBtn=document.querySelector(".download")!;
+
+let link='';
+ inp.addEventListener(('input'),(e)=>{
+    e.preventDefault();
+    var data=(inp as HTMLInputElement).value;
+    if(data){
+      passData(data);
+    }
+})
+async function passData(data:any){
+  link=gen_api+data;
+  qrImg.src=link;
+}
+downBtn.addEventListener(('click'),(e)=>{
+    fetchImage(link);
+})
+
+ async function fetchImage(url:any){
+  console.log(url);
+  fetch(url)
+  .then(response => response.blob())
+  .then( file => {
+      let tempFile = URL.createObjectURL(file) ;
+      let extension = file.type.split("/")[1];
+      download(tempFile, extension);
+  })
+  . catch(()=>url='')
+}
+
+async function download(tempFile:any, extension:any){
+  let a = document.createElement('a');
+  a.href = tempFile;
+  a.download = `.${extension}`
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+</script>
+
+<style>
+.showcase {
+  background: hsla(280, 84%, 41%, 1);
+  background: linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8711C1", endColorstr="#2472FC", GradientType=1 );
+  padding-top: 30px;
+  min-height:600px;
+}
+.container{
+  width:410px;
+  height:fit-content;
+  background: rgb(255, 242, 54);
+  border-radius:25px;
+  padding:15px 25px;
+  overflow:hidden;
+  box-shadow:10px 10px 5px 0px rgba(0,0,0,0.75);
+}
+.download{
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: initial;
+  background-image: linear-gradient(-180deg, #00D775, #00BD68);
+  border-radius: 25px;
+  box-shadow: 4px 4px 1px 0px rgba(0,0,0,0.75);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:20px;
+  font-weight:bold;
+  height: 44px;
+  line-height: 44px;
+  outline: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 40%;
+  z-index: 9;
+  border: 0;
+  transition: all .2s,box-shadow .08s ease-in;
+}
+.download:hover {
+  transform: scale(1.1);
+}
+.generator{
+  overflow:hidden;
+}
+.generator h1{
+  font-size:30px;
+  text-align:center;
+  margin-top:20px;
+}
+.generator p{
+  color:#000;
+  font-size:20px;
+  margin-top:10px;
+  text-align:center;
+}
+.generator-form{
+  margin: 20px 0;
+}
+.generator-form input{
+ width:100%;
+ height:55px;
+ border-radius:30px;
+ border:2px solid rgb(0, 0, 0);
+ font-size:18px; 
+ padding:0 15px;
+}
+.gen-btn, .image{
+  display: flex;
+  justify-content: center;
+  padding-bottom:25px;
+}
+</style>

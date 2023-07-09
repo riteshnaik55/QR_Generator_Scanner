@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+<title>QR Code Generator & Scanner</title>
+<Layout>
+  <section class="showcase">
+    <div class="container">
+      <div class="generator">
+        <h1>QR Code Scanner</h1>
+        <p>Upload file below</p>
+    
+        <div class="scanner-div">
+          <input type="file" class="inp_file" placeholder="Enter text or url"/>
+        </div>
+    
+        <div class="gen-btn">
+          <textarea disabled class="display"></textarea>
+          <div class="btn">
+            <button class="copy">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>     
+</Layout>
+
+<script>
+  const scan_api="https://api.qrserver.com/v1/read-qr-code/";
+ const file = document.querySelector(".inp_file") as HTMLElement;
+ const display = document.querySelector(".display")!;
+ const copy_btn = document.querySelector(".copy")!;
+
+  file.addEventListener('change',(e:any)=>{
+    let image = e.target.files[0];
+      getImage(image);
+  })
+
+  async function getImage(file:any){
+    let formdata=new FormData();
+    formdata.append("file",file);
+    const options={
+        method:"POST",
+        body:formdata
+    }
+    const response = await fetch(scan_api,options);
+    const res=await response.json();
+    let text=res[0].symbol[0].data;
+    if(!text){
+        display.innerHTML='<p>Incorrect QR</p>';
+    }
+    display.innerHTML=''+text;
+ }
+
+ copy_btn.addEventListener("click",()=>{
+    let text=(display.textContent) || "" ;
+    navigator.clipboard.writeText(text);
+    alert("Text copied!!!");
+ })
+
+</script> 
+
+<style>
+  .showcase {
+    min-height:600px;
+    background: hsla(280, 84%, 41%, 1);
+    background: linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+    background: -moz-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+    background: -webkit-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8711C1", endColorstr="#2472FC", GradientType=1 );
+    padding-top: 30px;
+  }
+  .container{
+    width:400px;
+    height: 500px;
+    background: rgb(255, 242, 54);
+    border-radius:25px;
+    padding:15px 25px;
+    overflow:hidden;
+    box-shadow:10px 10px 5px 0px rgba(0,0,0,0.75);
+    margin-bottom:30px;
+  }
+  .generator h1{
+    font-size:30px;
+    text-align:center;
+    margin-top:20px;
+  }
+  .generator p{
+  color:rgb(0, 0, 0);
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
+  text-align:center;
+}
+  .scanner-div{
+    height: 50px;
+    text-align: center;
+    cursor: pointer:
+  }
+  .gen-btn .display{
+    width:100%;
+    height:200px;
+    color:#000;
+    background:#fff;
+    outline: none;
+    font-size: 25px;
+    resize:none;
+  }
+  .gen-btn .btn{
+    display: flex;
+    justify-content: center;
+    border:none;
+    background: transparent;
+  }
+  .copy {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: #405cf5;
+    background-image: linear-gradient(-180deg, #405cf5, #405cf5);
+  border-radius: 25px;
+    border-radius: 25px;
+    border-width: 0;
+    box-shadow: 4px 4px 1px 0px rgba(0,0,0,0.75);
+    color: #fff;
+    cursor: pointer;
+    font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+    font-size: 100%;
+    font-weight:bold;
+    height: 44px;
+    line-height: 1.15;
+    margin: 12px 0 0;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all .2s,box-shadow .08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 60%;
+    margin-right:20px;
+    margin-left:20px;
+    padding-right:20px;
+    padding-left:20px;
+    margin-top:20px;
+}
+.copy:hover{
+  transform:scale(1.1);
+}
+</style>

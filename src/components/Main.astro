@@ -1,0 +1,108 @@
+---
+import Card from '../components/Card.astro'
+const featuresData = [
+  {title: 'What is a QR Code?', body: ' A QR (Quick Response) Code is a two-dimensional version of the barcode, typically made up of black and white pixel patterns.'},
+  {title: 'Ease of Payment', body: 'UPI payments through QR Codes are most preferred by merchants and consumers.'},
+  {title: 'Very High Scan Rates', body: 'QR code are likely to get you highest scans compared to other alternatives in the market. '},
+  {title: 'Advertising', body: 'QR Code ar highly used in marketing campaigns and promotions for the best RoI.'}
+];
+---
+<section class="showcase">
+
+  <div class="showcase-text">
+    <h1>Welcome to QR Scanner Generator</h1>
+    <p>Generate new QR codes or extract text from exisiting ones within seconds</p>
+  </div>
+
+  <div class="showcase-demo">
+      <div>
+      <a href="/qrgenerate" class="gen">Generate QR Code</a>
+      <a href="/qrscan" class="scan">Scan QR Code</a>
+    </div>
+</div>
+
+  <div class="features">
+    <div class="container">
+      {featuresData.map(feature => (
+         <Card title={feature.title} body={feature.body}>
+         </Card>
+       ))}
+     </div>
+  </div>
+</section>
+
+<style>
+.showcase {
+  height: auto;
+  background: hsla(280, 84%, 41%, 1);
+  background: linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  background: -moz-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  background: -webkit-linear-gradient(90deg, hsla(280, 84%, 41%, 1) 0%, hsla(218, 97%, 56%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#8711C1", endColorstr="#2472FC", GradientType=1 );
+  padding-top: 30px;
+}
+.showcase-text {
+  color: #fff;
+  text-align: center;
+  margin: 50px auto;
+}
+.showcase h1 {
+  font-size: 50px;
+  color: rgb(255, 242, 54);
+  margin-bottom: 20px;
+}
+.showcase p{
+  font-size:22px;
+}
+.showcase-demo {
+  color: #fff;
+  text-align: center;
+  font-weight: 300;
+  padding:10px;
+}
+.features .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px;
+    padding: 0 20px;
+    margin: 30px auto;
+  }
+  .gen, .scan{
+  backface-visibility: hidden;
+  background: #84ffc9;
+  border-radius: 25px;
+  box-shadow: 4px 4px 1px 0px rgba(0,0,0,0.75);
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-weight:bold;
+  font-size:25px;
+  height: 50px;
+  line-height: 44px;
+  outline: 0;
+  margin-left:30px;
+  margin-right:30px;
+  overflow: hidden;
+  pointer-events: auto;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: top;
+  white-space: nowrap;
+  width: 300px;
+  z-index: 9;
+  border: 0;
+  transition: all .2s,box-shadow .08s ease-in;
+}
+.gen:hover , .scan:hover {
+  transform: scale(1.1);
+}
+  @media (max-width: 500px) {
+  .features .container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

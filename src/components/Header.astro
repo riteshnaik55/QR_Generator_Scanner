@@ -1,0 +1,77 @@
+---
+import logo from '../images/logo.svg'
+---
+<header class="header">
+  <div class="container">
+    <div class="logo_title">
+      <div class="logo">
+        <a href="/">
+          <img src={logo} alt="Logo" />
+        </a>
+      </div>
+      <div class="logo_text">
+        <a href="/">
+          <h3>QR Code Generator & Scanner</h3>
+        </a>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/qrgenerate">QR Generator</a></li>
+        <li><a href="/qrscan">QR Scanner</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  
+.header {
+  background:#2472fc;
+}
+.header .container {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position:sticky;
+}
+.header img {
+  width:35px;
+  height: 35px;
+  vertical-align: middle;
+}
+.header nav ul {
+  display: flex;
+}
+.header nav ul li {
+  font-size:20px;
+  font-weight:bold;
+  padding: 0 15px;
+}
+.header nav ul li a {
+  color: #faff89;
+}
+.header nav ul li:hover{
+  transform:scale(1.2);
+}
+.logo{
+  padding:2px;
+  background-color:#fff;
+}
+.logo_title{
+  color:#fff;
+  display:flex;
+  align-items:center;
+  padding-left:30px;
+}
+.logo_text{
+  padding-left:10px;
+}
+h3{
+  color:#fff;
+  text-decoration:none;
+  font-size:1.2rem;
+}
+</style>
