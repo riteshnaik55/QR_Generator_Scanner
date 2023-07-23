@@ -31,7 +31,7 @@ You can find the demo website here - [Click here](https://qrcreate.netlify.app/)
 ![App Screenshot](https://github.com/riteshnaik55/QR_Generator_Scanner/blob/main/screenshots/2.JPG)
 ![App Screenshot](https://github.com/riteshnaik55/QR_Generator_Scanner/blob/main/screenshots/3.JPG)
 ## Contact
-Thank you for checking out IP Finder! We hope you find it useful and valuable.
+Thank you for checking out QR Code Generator & Scanner! We hope you find it useful and valuable.
 
 For any inquiries or further information, feel free to reach out to me:
 
